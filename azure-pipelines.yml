@@ -36,4 +36,13 @@ stages:
         dockerfile: $(dockerfilePath)
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
-          $(tag)
+    - task: AzureRmWebAppDeployment@4
+      inputs:
+        ConnectionType: 'AzureRM'
+        azureSubscription: 'Pay-As-You-Go(9a668e8f-ad3f-48a1-94cb-fbcf50b35167)'
+        appType: 'webAppContainer'
+        WebAppName: 'flipso-aspnet-core-ap'
+        DockerNamespace: 'flipsoaspnetcoreapp'
+        DockerRepository: 'flipsoaspnetcoreapp.azurecr.io/flipsoaspnetcoreapp'
+        DockerImageTag: '$(tag)'
+
